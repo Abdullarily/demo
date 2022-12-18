@@ -130,7 +130,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "ARRAY_CYCLE" -> sendMsg(chatId, Text.arrayCycle(), keyBoardsInline.arrayCycle());
                 case "ARRAY_INITIALIZATION" -> sendPhoto(chatId, Text.arrayInitialization(), "photo/arrayCycle.jpg");
                 case "BUBBLE_SORTED" -> sendPhoto(chatId, Text.bubbleSorted(), "photo/bubbleSorted.jpg");
-                case "ARRAY_SORTED" -> sendMsg(chatId, Text.arraySorted(), keyBoardsInline.sortingAlgorithms());
+                case "ALGORITHMS_SORTED" -> sendMsg(chatId, Text.arraySorted(), keyBoardsInline.sortingAlgorithms());
                 case "SHAKER_SORTED" -> sendPhoto(chatId, Text.shakerSorted(), "photo/shakerSorted.jpg");
                 case "COMB_SORTED" -> sendPhoto(chatId, Text.combSorted(), "photo/combSorted.jpg");
 

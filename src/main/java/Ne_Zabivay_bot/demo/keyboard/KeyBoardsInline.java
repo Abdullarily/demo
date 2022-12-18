@@ -133,7 +133,7 @@ public class KeyBoardsInline {
 
         InlineKeyboardButton arraySorted = new InlineKeyboardButton();
         arraySorted.setText("Алгоритмы сортировки");
-        arraySorted.setCallbackData("ARRAY_SORTED");
+        arraySorted.setCallbackData("ALGORITHMS_SORTED");
         rowInline1.add(arraySorted);
         rowsInline.add(rowInline1);
 
