@@ -134,4 +134,76 @@ public class KeyboardsMarkUp {
         replyKeyboardMarkup.setOneTimeKeyboard(true);
         return replyKeyboardMarkup;
     }
+    public ReplyKeyboardMarkup myKeyboard() {
+
+        String sobes = "Вопросы с собеседований JAVA EE";
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+
+        KeyboardRow row = new KeyboardRow();
+        row.add(sobes);
+        keyboardRows.add(row);
+
+        row = new KeyboardRow();
+        row.add("еще там что то");
+        keyboardRows.add(row);
+
+        replyKeyboardMarkup.setKeyboard(keyboardRows);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
+        return replyKeyboardMarkup;
+    }
+    public ReplyKeyboardMarkup questionsEe() {
+        String eeApi = "Java EE API";
+        String web = "Web";
+        String servlet = "Servlet";
+        String sqlJdbc = "SQL, JDBC";
+        String jpa = "JPA";
+        String webServices = "Web Services";
+        String jsf = "JSF";
+        String jsp = "JSP";
+        String spring = "Spring";
+        String hibernate = "Hibernate";
+
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+
+        KeyboardRow row = new KeyboardRow();
+        row.add(sqlJdbc);
+        row.add(servlet);
+        row.add(eeApi);
+        keyboardRows.add(row);
+
+        row = new KeyboardRow();
+        row.add(jpa);
+        row.add(web);
+        row.add(jsp);
+        row.add(jsf);
+        keyboardRows.add(row);
+
+        row = new KeyboardRow();
+        row.add(webServices);
+        row.add(spring);
+        row.add(hibernate);
+        keyboardRows.add(row);
+
+        replyKeyboardMarkup.setKeyboard(keyboardRows);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
+        return replyKeyboardMarkup;
+    }
+    public ReplyKeyboardMarkup docker() {
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+        String dockerCommand = "Комманды докера(Консоль)";
+        KeyboardRow row = new KeyboardRow();
+
+        row.add(dockerCommand);
+        keyboardRows.add(row);
+
+        replyKeyboardMarkup.setKeyboard(keyboardRows);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(true);
+        return replyKeyboardMarkup;
+    }
 }
