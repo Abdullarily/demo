@@ -1,5 +1,6 @@
 package Ne_Zabivay_bot.demo.service;
 
+import DB.MethodDB;
 import Ne_Zabivay_bot.demo.keyboard.KeyBoardsInline;
 import Ne_Zabivay_bot.demo.variables.Text;
 import Ne_Zabivay_bot.demo.config.BotConfig;
@@ -22,6 +23,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +36,6 @@ public class TelegramBot extends TelegramLongPollingBot {
     final static String HELP_TEXT = "Данный бот это сборник полезных сайтов, интересных каналов," +
             " и прочьего еще чего то там, для более подробного изучения всех команд отправьте команду " +
             "/all_commands и откройте полученный файл, с описанием всех комманд";
-
-
     public TelegramBot(BotConfig config) {
         this.config = config;
         List<BotCommand> listOfCommands = new ArrayList<>();
@@ -60,6 +60,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
+
+
         try {
             if (update.hasMessage() && update.getMessage().hasText()) {
                 String messageText = update.getMessage().getText();
@@ -99,28 +101,28 @@ public class TelegramBot extends TelegramLongPollingBot {
                     case "/test" -> sendPhoto(chatId, "Проверка удалась", "photo/0001.jpg");
                     case "/start" -> startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
                     case "/help" -> sendMsg(chatId, HELP_TEXT);
-                    case "/javacore" -> sendMsg(chatId, Text.javaCore(), keyboardsMarkUp.keyboardJavaCore());
-                    case "/spring" -> sendMsg(chatId, Text.spring(), keyboardsMarkUp.keyboardSpring());
-                    case "/tgbot" -> sendMsg(chatId, Text.tgBot(), keyboardsMarkUp.keyboardTgBot());
+                    case "/javacore" -> sendMsg(chatId, MethodDB.returnTextDB("test"), keyboardsMarkUp.keyboardJavaCore());
+                    case "/spring" -> sendMsg(chatId, MethodDB.returnTextDB("spring"));
+                    case "/tgbot" -> sendMsg(chatId, MethodDB.returnTextDB("tgBot"));
 
                     //Коллекции
-                    case "/lists" -> sendMsg(chatId, Text.lists(), keyboardsMarkUp.keyboardLists());
-                    case "/interfacecollection" -> sendMsg(chatId, Text.interfaceCollection(), keyboardsMarkUp.keyboardCollection());
-                    case "/extendscollections" -> sendMsg(chatId, Text.extendsCollection());
-                    case "/abstractcollectionclass" -> sendMsg(chatId, Text.abstractCollectionClass());
-                    case "/collectiontypes" -> sendMsg(chatId, Text.collectionTypes(), keyBoardsInline.keyboardLists());
+                    case "/lists" -> sendMsg(chatId, MethodDB.returnTextDB("lists"), keyboardsMarkUp.keyboardLists());
+                    case "/interfacecollection" -> sendMsg(chatId, MethodDB.returnTextDB("interfacecollection"), keyboardsMarkUp.keyboardCollection());
+                    case "/extendscollections" -> sendMsg(chatId, MethodDB.returnTextDB("extendscollections"));
+                    case "/abstractcollectionclass" -> sendMsg(chatId, MethodDB.returnTextDB("abstractcollectionclass"));
+                    case "/collectiontypes" -> sendMsg(chatId, MethodDB.returnTextDB("collectiontypes"), keyBoardsInline.keyboardLists());
                     case "/collectionmethods" -> sendMsg(chatId, Text.collectionMethods());
 
                     //Массивы
-                    case "/arrays" -> sendMsg(chatId, Text.array(), keyboardsMarkUp.keyboardArray());
-                    case "/arrayMethods" -> sendMsg(chatId, Text.arraysMethods());
-                    case "/initialize" -> sendMsg(chatId, Text.initialize(), keyBoardsInline.keyboardArrayExample());
+                    case "/arrays" -> sendMsg(chatId, MethodDB.returnTextDB("arrays"), keyboardsMarkUp.keyboardArray());
+                    case "/arrayMethods" -> sendMsg(chatId, MethodDB.returnTextDB("arrayMethods"));
+                    case "/initialize" -> sendMsg(chatId, MethodDB.returnTextDB("initialize"), keyBoardsInline.keyboardArrayExample());
                     case "/arraytypes" -> sendPhoto(chatId, "Вот двумерные и зубчатые массивы", "photo/array/doubleArray.jpg");
 
 
                     //https://javastudy.ru/interview/list-of-questions-javaee-interview Вопросы с собеседований javaEE
                     case "/rilyabdulla" -> sendPhoto(chatId, "Учись, стремись и развивайся, ради них!!!", "photo/МоиМотивашки.jpg", keyboardsMarkUp.myKeyboard());
-                    case "/interviewquestionsee" -> sendMsg(chatId, Text.interviewEe(), keyboardsMarkUp.questionsEe());
+                    case "/interviewquestionsee" -> sendMsg(chatId, MethodDB.returnTextDB("interviewQuestionsEe"), keyboardsMarkUp.questionsEe());
                     case "/web" -> sendMsg(chatId, "Выберите вопрос", keyBoardsInline.eeWeb());
                     case "/joke" -> sendMsg(chatId, "Иды ты на х..");
 
@@ -138,47 +140,50 @@ public class TelegramBot extends TelegramLongPollingBot {
                 EditMessageText message = new EditMessageText();
 
                 switch (callbackData) {
-                    case "ARRAY_LIST" -> buttonAnswer(message, chatId, messageId, Text.arrayList());
-                    case "LINKED_LIST" -> buttonAnswer(message, chatId, messageId, Text.linkedList());
-                    case "ARRAY_DEQUE" -> buttonAnswer(message, chatId, messageId, Text.arrayDeque());
-                    case "HASH_SET" -> buttonAnswer(message, chatId, messageId, Text.hashSet());
-                    case "TREE_SET" -> buttonAnswer(message, chatId, messageId, Text.treeSet());
-                    case "LINKED_HASH_SET" -> buttonAnswer(message, chatId, messageId, Text.linkedHashSet());
-                    case "PRIORITY_QUEUE" -> buttonAnswer(message, chatId, messageId, Text.priorityQueue());
-                    case "HASH_MAP" -> buttonAnswer(message, chatId, messageId, Text.hashMap());
-                    case "TREE_MAP" -> buttonAnswer(message, chatId, messageId, Text.treeMap());
+                    case "ARRAY_LIST" -> buttonAnswer(message, chatId, messageId, MethodDB.returnTextDB("arrayList"));
+                    case "LINKED_LIST" -> buttonAnswer(message, chatId, messageId, MethodDB.returnTextDB("linkedList"));
+                    case "ARRAY_DEQUE" -> buttonAnswer(message, chatId, messageId, MethodDB.returnTextDB("arrayDeque"));
+                    case "HASH_SET" -> buttonAnswer(message, chatId, messageId, MethodDB.returnTextDB("hashSet"));
+                    case "TREE_SET" -> buttonAnswer(message, chatId, messageId, MethodDB.returnTextDB("treeSet"));
+                    case "LINKED_HASH_SET" -> buttonAnswer(message, chatId, messageId, MethodDB.returnTextDB("linkedHashSet"));
+                    case "PRIORITY_QUEUE" -> buttonAnswer(message, chatId, messageId, MethodDB.returnTextDB("priorityQueue"));
+                    case "HASH_MAP" -> buttonAnswer(message, chatId, messageId, MethodDB.returnTextDB("hashMap"));
+                    case "TREE_MAP" -> buttonAnswer(message, chatId, messageId, MethodDB.returnTextDB("treeMap"));
                     case "CREATE_ARRAY" -> sendPhoto(chatId, "Примеры создания массивов", "photo/array/array.jpg");
-                    case "MULTIDIMENSIONAL_ARRAY" -> sendPhoto(chatId, Text.multidimensionalArray(), "photo/array/doubleArray.jpg");
-                    case "ARRAY_CYCLE" -> sendMsg(chatId, Text.arrayCycle(), keyBoardsInline.arrayCycle());
-                    case "ARRAY_INITIALIZATION" -> sendPhoto(chatId, Text.arrayInitialization(), "photo/array/arrayCycle.jpg");
-                    case "BUBBLE_SORTED" -> sendPhoto(chatId, Text.bubbleSorted(), "photo/array/bubbleSorted.jpg");
-                    case "ALGORITHMS_SORTED" -> sendMsg(chatId, Text.arraySorted(), keyBoardsInline.sortingAlgorithms());
-                    case "SHAKER_SORTED" -> sendPhoto(chatId, Text.shakerSorted(), "photo/array/shakerSorted.jpg");
-                    case "COMB_SORTED" -> sendPhoto(chatId, Text.combSorted(), "photo/array/combSorted.jpg");
-                    case "WWW" -> sendMsg(chatId, Text.www());
-                    case "W3C" -> sendMsg(chatId, Text.w3c());
-                    case "TCP/IP" -> sendMsg(chatId, Text.tcpIp());
-                    case "FTP" -> sendMsg(chatId, Text.ftp());
-                    case "HTTP/HTPPS" -> sendMsg(chatId, Text.httpHttps());
-                    case "APPLICATION_SERVER" -> sendMsg(chatId, Text.applicationServer());
-                    case "WEB_SERVER" -> sendMsg(chatId, Text.webServer());
-                    case "WEB_APPLICATION" -> sendMsg(chatId, Text.webApplication());
-                    case "DATE_TRANSFER" -> sendMsg(chatId, Text.dateTransfer());
-                    case "DIFFERENCE_WEB_AND_APPLICATION" -> sendMsg(chatId, Text.differenceWebAndApplication());
-                    case "DATA_TRANSFER_METHODS" -> sendMsg(chatId, Text.dataTransferMethods());
-                    case "GET_AND_POST" -> sendPhoto(chatId, Text.getAndPost(), "questions/photo/questions/questionsEeGetAndPost.jpg");
-                    case "WHAT_HTML" -> sendMsg(chatId, Text.whatHtml());
-                    case "WHAT_XML" -> sendMsg(chatId, Text.whatXml());
-                    case "WHAT_CSS" -> sendMsg(chatId, Text.whatCss());
-                    case "MIME_TYPE" -> sendMsg(chatId, Text.mimeType());
-                    case "WHAT_COOKIES" -> sendMsg(chatId, Text.whatCookies());
-                    case "WHAT_SESSION" -> sendMsg(chatId, Text.whatSession());
-                    case "AUTHORIZATION_AUTHENTICATION" -> sendMsg(chatId, Text.authorizationAuthentication());
-                    case "WHAT_AJAX" -> sendMsg(chatId, Text.whatAjax());
-                    case "WHAT_ORM" -> sendMsg(chatId, Text.whatOrm());
+                    case "MULTIDIMENSIONAL_ARRAY" -> sendPhoto(chatId, MethodDB.returnTextDB("multidimensionalArray"), "photo/array/doubleArray.jpg");
+                    case "ARRAY_CYCLE" -> sendMsg(chatId, MethodDB.returnTextDB("arrayCycle"), keyBoardsInline.arrayCycle());
+                    case "ARRAY_INITIALIZATION" -> sendPhoto(chatId, MethodDB.returnTextDB("arrayInitialization"), "photo/array/arrayCycle.jpg");
+                    case "BUBBLE_SORTED" -> sendPhoto(chatId, MethodDB.returnTextDB("bubbleSorted"), "photo/array/bubbleSorted.jpg");
+                    case "ALGORITHMS_SORTED" -> sendMsg(chatId, MethodDB.returnTextDB("arraySorted"), keyBoardsInline.sortingAlgorithms());
+                    case "SHAKER_SORTED" -> sendPhoto(chatId, MethodDB.returnTextDB("shakerSorted"), "photo/array/shakerSorted.jpg");
+                    case "COMB_SORTED" -> sendPhoto(chatId, MethodDB.returnTextDB("comboSorted"), "photo/array/combSorted.jpg");
+                    case "WWW" -> sendMsg(chatId, MethodDB.returnTextDB("www"));
+                    case "W3C" -> sendMsg(chatId, MethodDB.returnTextDB("w3c"));
+                    case "TCP/IP" -> sendMsg(chatId, MethodDB.returnTextDB("tcpIp"));
+                    case "FTP" -> sendMsg(chatId, MethodDB.returnTextDB("ftp"));
+                    case "HTTP/HTTPS" -> sendMsg(chatId, MethodDB.returnTextDB("http/https"));
+                    case "APPLICATION_SERVER" -> sendMsg(chatId, MethodDB.returnTextDB("applicationServer"));
+                    case "WEB_SERVER" -> sendMsg(chatId, MethodDB.returnTextDB("webServer"));
+                    case "WEB_APPLICATION" -> sendMsg(chatId, MethodDB.returnTextDB("webApplication"));
+                    case "DATE_TRANSFER" -> sendMsg(chatId, MethodDB.returnTextDB("dateTransfer"));
+                    case "DIFFERENCE_WEB_AND_APPLICATION" -> sendMsg(chatId, MethodDB.returnTextDB("differenceWebAndApplication"));
+                    case "DATA_TRANSFER_METHODS" -> sendMsg(chatId, MethodDB.returnTextDB("dataTransferMethods"));
+                    case "GET_AND_POST" -> {
+                        sendMsg(chatId, MethodDB.returnTextDB("getAndPostPhoto"));
+                        sendPhoto(chatId, MethodDB.returnTextDB("getAndPostText"), "photo/questions/getAndPost.jpg");
+                    }
+                    case "WHAT_HTML" -> sendMsg(chatId, MethodDB.returnTextDB("html"));
+                    case "WHAT_XML" -> sendMsg(chatId, MethodDB.returnTextDB("xml"));
+                    case "WHAT_CSS" -> sendMsg(chatId, MethodDB.returnTextDB("css"));
+                    case "MIME_TYPE" -> sendMsg(chatId, MethodDB.returnTextDB("mimeType"));
+                    case "WHAT_COOKIES" -> sendMsg(chatId, MethodDB.returnTextDB("cookies"));
+                    case "WHAT_SESSION" -> sendMsg(chatId, MethodDB.returnTextDB("session"));
+                    case "AUTHORIZATION_AUTHENTICATION" -> sendMsg(chatId, MethodDB.returnTextDB("authorizationAuthentication"));
+                    case "WHAT_AJAX" -> sendMsg(chatId, MethodDB.returnTextDB("ajax"));
+                    case "WHAT_ORM" -> sendMsg(chatId, MethodDB.returnTextDB("orm"));
                 }
             }
-        } catch (TelegramApiException | FileNotFoundException e) {
+        } catch (TelegramApiException | FileNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -231,8 +236,8 @@ public class TelegramBot extends TelegramLongPollingBot {
         executeMessage(message);
     }
 
-    private void startCommandReceived(long chatId, String name) {
-        String answer = EmojiParser.parseToUnicode("Приветствую " + name + Text.start());
+    private void startCommandReceived(long chatId, String name) throws SQLException {
+        String answer = EmojiParser.parseToUnicode("Приветствую " + name + MethodDB.returnTextDB("start"));
         log.info("Ответ пользователю: " + name);
 
         sendMsg(chatId, answer, keyboardsMarkUp.keyboardStart());

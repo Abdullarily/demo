@@ -1,7 +1,5 @@
 package Ne_Zabivay_bot.demo.variables;
 
-import Ne_Zabivay_bot.demo.config.DBConnection;
-
 import java.sql.Connection;
 import java.sql.Statement;
 
