@@ -2,6 +2,7 @@ package Ne_Zabivay_bot.demo.service;
 
 import DB.MethodDB;
 import Ne_Zabivay_bot.demo.keyboard.KeyBoardsInline;
+import Ne_Zabivay_bot.demo.parsers.ParserGit;
 import Ne_Zabivay_bot.demo.variables.Text;
 import Ne_Zabivay_bot.demo.config.BotConfig;
 import Ne_Zabivay_bot.demo.keyboard.KeyboardsMarkUp;
@@ -33,6 +34,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     final BotConfig config;
     KeyboardsMarkUp keyboardsMarkUp = new KeyboardsMarkUp();
     KeyBoardsInline keyBoardsInline = new KeyBoardsInline();
+    ParserGit parserGit = new ParserGit();
     final static String HELP_TEXT = "Данный бот это сборник полезных сайтов, интересных каналов," +
             " и прочьего еще чего то там, для более подробного изучения всех команд отправьте команду " +
             "/all_commands и откройте полученный файл, с описанием всех комманд";
@@ -101,7 +103,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     case "/test" -> sendPhoto(chatId, "Проверка удалась", "photo/0001.jpg");
                     case "/start" -> startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
                     case "/help" -> sendMsg(chatId, HELP_TEXT);
-                    case "/javacore" -> sendMsg(chatId, MethodDB.returnTextDB("test"), keyboardsMarkUp.keyboardJavaCore());
+                    case "/javacore" -> sendMsg(chatId, MethodDB.returnTextDB("javaCore"), keyboardsMarkUp.keyboardJavaCore());
                     case "/spring" -> sendMsg(chatId, MethodDB.returnTextDB("spring"));
                     case "/tgbot" -> sendMsg(chatId, MethodDB.returnTextDB("tgBot"));
 
